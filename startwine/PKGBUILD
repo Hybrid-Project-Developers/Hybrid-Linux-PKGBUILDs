@@ -1,0 +1,28 @@
+pkgname=startwine
+pkgver=363
+pkgrel=1
+pkgdesc="Software for playing Microsoft Windows games and launchers"
+arch=('x86_64')
+url="https://github.com/RusNor/StartWine-Launcher"
+license=('GPL')
+depends=('zstd' 'imagemagick' 'vulkan-tools' 'xdg-user-dirs' 'python-gobject' 'python-cairo' 'python-opengl' 'python-pillow' 'python-numpy' 'python-six' 'wine-staging')
+source=("StartWine.desktop"
+        "StartWine.png")
+sha256sums=('SKIP'
+            'SKIP')
+            
+prepare() {
+	cd $srcdir
+	curl -s https://api.github.com/repos/RusNor/StartWine-Launcher/releases/latest | grep "StartWine_v*" | cut -d : -f 2,3 | tr -d \" | wget -qi -
+}
+
+pkgver() {
+	cd $srcdir
+	for file in `find . -name "StartWine_v*"`; do grep -lvsr {1..2000} $file; done | awk -F"StartWine_v" '{ print $2 }'
+}
+
+package() {
+  install -Dm755 "StartWine_v$pkgver" "$pkgdir/usr/bin/$pkgname"
+  install -Dm644 "StartWine.desktop" -t "$pkgdir/usr/share/applications/"
+  install -Dm644 "StartWine.png" -t "$pkgdir/usr/share/pixmaps"
+}
