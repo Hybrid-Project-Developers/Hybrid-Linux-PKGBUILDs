@@ -1,0 +1,16 @@
+pkgname=hybrid-v2-mirrorlist
+pkgver=20220920
+pkgrel=1
+pkgdesc="Hybrid Linux mirror list for use by pacman"
+arch=('x86_64')
+url="https://www.archlinux.org/pacman/"
+license=('GPL')
+groups=('hybrid')
+source=('${pkgname}')
+md5sums=('SKIP')
+
+package() {
+  mkdir -p ${pkgdir}/etc/pacman.d
+
+  install -m644 ${srcdir}/${pkgname} ${pkgdir}/etc/pacman.d/
+}

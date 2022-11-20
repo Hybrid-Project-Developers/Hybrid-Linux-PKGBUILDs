@@ -1,0 +1,2 @@
+Server = https://osdn.net/projects/hybridlinux/storage/$repo/$arch/
+Server = https://sourceforge.net/projects/hybridlinux/files/Repo/$repo/$arch/
