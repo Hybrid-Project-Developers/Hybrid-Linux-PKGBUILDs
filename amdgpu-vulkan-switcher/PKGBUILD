@@ -1,0 +1,15 @@
+pkgname=amdgpu-vulkan-switcher
+pkgver=2.0
+pkgrel=5
+pkgdesc="Select needed vulkan implementation with vk_radv, vk_amdvlk or vk_pro prefix"
+arch=('x86_64')
+
+depends=('bash')
+
+source=('amdgpu-vulkan-switcher-2.0-5.fc36.x86_64.rpm')
+
+sha256sums=('SKIP')
+
+package() {
+  find $srcdir/ -mindepth 1 -maxdepth 1 -type d | xargs cp -r -t "$pkgdir"
+}

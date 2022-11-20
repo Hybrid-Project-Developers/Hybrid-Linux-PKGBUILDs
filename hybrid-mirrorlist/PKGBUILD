@@ -6,7 +6,7 @@ arch=('x86_64')
 url="https://www.archlinux.org/pacman/"
 license=('GPL')
 groups=('hybrid')
-source=('${pkgname}')
+source=('hybrid-mirrorlist')
 md5sums=('SKIP')
 
 package() {

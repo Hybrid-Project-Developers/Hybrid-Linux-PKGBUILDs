@@ -1,0 +1,15 @@
+pkgname=amdgpu-opencl-switcher
+pkgver=1.1
+pkgrel=1
+pkgdesc="Select needed opencl implementation with cl_pro prefix"
+arch=('x86_64')
+
+depends=('bash')
+
+source=('amdgpu-opencl-switcher-1.1-0.fc36.x86_64.rpm')
+
+sha256sums=('SKIP')
+
+package() {
+  find $srcdir/ -mindepth 1 -maxdepth 1 -type d | xargs cp -r -t "$pkgdir"
+}
