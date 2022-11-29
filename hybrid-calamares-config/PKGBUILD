@@ -1,6 +1,5 @@
 # Maintainer: Erik Dubois <erik.dubois@gmail.com>
 pkgname=hybrid-calamares-config
-_destname1="/etc"
 pkgver=22.06
 pkgrel=15
 pkgdesc="Calamares configuration for Hybrid Linux"
@@ -15,6 +14,11 @@ options=(!strip !emptydirs)
 source=(${pkgname}::"git+${url}/${pkgname}")
 sha256sums=('SKIP')
 package() {
-	install -dm755 ${pkgdir}${_destname1}
-	cp -r ${srcdir}/${pkgname}${_destname1}/* ${pkgdir}${_destname1}
+	local _destdir=etc/calamares
+
+  	install -dm755 $pkgdir/$_destdir
+    install -dm755 $pkgdir/usr/lib/calamares/modules/pacstrap
+  	
+  	cp -rf $srcdir/$pkgname/etc $pkgdir
+  	cp -rf $srcdir/$pkgname/usr/lib/calamares/modules/pacstrap/* $pkgdir/usr/lib/calamares/modules/pacstrap
 }
