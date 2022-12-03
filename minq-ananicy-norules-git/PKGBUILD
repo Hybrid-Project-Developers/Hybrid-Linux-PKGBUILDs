@@ -1,0 +1,36 @@
+# Maintainer: ratata
+
+pkgname=minq-ananicy-norules-git
+pkgver=2.2.1.r323.g42fc6af
+pkgrel=1
+pkgdesc="Minq Ananicy - fork of Ananicy with support for cmdline and compatibility with ananicy-rules or ananicy-rules-git packages"
+arch=('any')
+url="https://github.com/Hybrid-Project-Developers/minq-ananicy-norules"
+license=('GPL3')
+depends=('systemd' 'bash' 'schedtool')
+makedepends=('git' 'make')
+optdepends=('ananicy-rules: Ananicy rules from CachyOS'
+			'ananicy-rules-git: Git rules for ananicy')
+source=("$pkgname"::'git+https://github.com/Hybrid-Project-Developers/minq-ananicy-norules.git#branch=master')
+md5sums=('SKIP')
+install=$pkgname.install
+provides=(minq-ananicy-norules-git)
+conflicts=('minq-ananicy-git')
+
+pkgver() {
+	cd "$pkgname"
+#	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse HEAD)"
+    git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+package() {
+	cd "${srcdir}/${pkgname}/"
+
+	# this is needed so that paru can report on updates
+	mkdir -p "${pkgdir}/opt/${pkgname}"
+	cp -rf * "${pkgdir}/opt/${pkgname}"
+
+	make install PREFIX="${pkgdir}"
+	mkdir -p "${pkgdir}/usr/"
+	mv -v "${pkgdir}/lib" "${pkgdir}/usr/"
+}
